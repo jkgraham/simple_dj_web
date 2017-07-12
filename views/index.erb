@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jobs</title>
+</head>
+<style type="text/css">
+	body {
+		font-family: arial;
+		font-size: 9pt;
+	}
+	table {
+		border: 1px solid;
+		width: 2000px;
+	}
+</style>
+<body>
+
+	<h1>Jobs</h1>
+	<h2><%= Job.count %></h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Attempts</th>
+				<th>Queue</th>
+				<th>Run At</th>
+				<th>Locked At</th>
+				<th>Locked By</th>
+				<th>Failed At</th>
+				<th>Hander</th>
+				<th>Last Error</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% Job.all.each do |job| %>
+			<tr>
+				<td><%= job.id %></td>	
+				<td><%= job.attempts %></td>	
+				<td><%= job.queue %></td>	
+				<td><%= job.run_at %></td>	
+				<td><%= job.locked_at %></td>	
+				<td><%= job.locked_by.nil? ? '' : job.locked_by[8..13] %></td>	
+				<td><%= job.failed_at %></td>	
+				<td><a href="/handler/<%= job.id %>"><%= job.handler[0..50] %></a></td>	
+				<td><%= job.last_error[0..100] %></td>	
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+
+</body>
+</html>
